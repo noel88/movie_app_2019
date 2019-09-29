@@ -1,68 +1,39 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function Food({name , picture, rating}) {
-  return (
-      <div>
-        <h2>I like {name}</h2>
-        <h4>{rating} / 5.0</h4>
-        <img src ={picture} alt={name} />
-      </div>
-  );
-}
-
-Food.propTypes = {
-    name: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
-    rating : PropTypes.number.isRequired
-};
-
-const foodILike = [
-    {
-        id: 1,
-        name:"kimchi",
-        image: "",
-        rating: 5
-    },
-    {
-        id: 2,
-        name:"samgyeopsal",
-        image: "",
-        rating: 4.9
-    },
-    {
-        id:3,
-        name:"bibimbap",
-        image: "",
-        rating: 4.8
-    },
-    {
-        id:4,
-        name:"Doncasu",
-        image: "",
-        rating: 4.7
-    },
-    {
-        id:5,
-        name:"kimbap",
-        image: "",
-        rating: 4.6
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log("hello!")
+    }
+    state = {
+        count: 0
+    };
+    add = () => {
+        this.setState(current => ({count: current.count +1}));
+    };
+    minus = () => {
+        this.setState(current => ({count: current.count -1}));
+    };
+    componentDidMount() {
+        console.log("component rendered")
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("update")
     }
 
-    ];
+    componentWillUnmount() {
+        console.log("good bye")
+    }
 
-function renderFood(dish) {
-    console.log(dish);
-    return <Food key={dish.id} name={dish.name} picture={dish.image} rating={dish.rating}/>
+    render() {
+        console.log("rendering");
+        return (
+            <div>
+                <h1> The number is:  {this.state.count}</h1>
+                <button onClick={this.add}>Add</button>
+                <button onClick={this.minus}>Minus</button>
+            </div>
+        )
+    }
 }
-
-function App() {
-  return (
-      <div>
-          {foodILike.map(renderFood)}
-      </div>
-
-  );
-}
-
 export default App;
